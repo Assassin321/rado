@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>注册</title>
+
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    <form class="form-signup"  id="signup" v-on:submit.prevent="onSubmit">
+  <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus v-model="email">
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="pw1" required >
+  <label for="inputPassword2" class="sr-only">PasswordAgain</label>
+  <input type="password" id="inputPassword2" class="form-control" placeholder="PasswordAgain" v-model="pw2" v-on:input="isEqual" required >
+      <h6 v-if="isshow">两次输入密码不一致</h6>
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" v-on:click="signup()">Sign in</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+</form>
+</body>
+<script>
+  new Vue({
+    el:"#signup",
+    data:{
+      isshow:false,
+      email:"",
+      pw1:"",
+      pw2:"",
+    },
+    methods:{
+      isEqual:function (){
+        if (this.pw1!="" & this.pw2!="" &this.pw2!=this.pw1){
+
+          this.isshow=true;
+        }
+        else {
+          this.isshow=false
+        }
+
+
+    },
+      signup:function (){
+        var that =this
+        data={
+          "action":"signup",
+          "email":this.email,
+          "password":this.pw1
+        }
+        axios.post("http://127.0.0.1:8000",data).then(function (response){
+          alert(response)
+
+        },function (err){});
+      },
+      onSubmit:function (){
+        this.pw1=""
+        this.pw2=""
+        this.email=""
+        return false
+      }
+
+
+    }
+
+  });
+</script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form action="/getAllRado/" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <p>
+            <label for="pic">
+                图片：
+            </label><input type="file" name="photo" id="pic"/>
+        </p>
+        <P>
+            &emsp;&emsp;<input type="submit" value="发送"/>
+        </P>
+    </form>
+
+</body>
+</html>
